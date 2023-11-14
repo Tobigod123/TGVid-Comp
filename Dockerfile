@@ -14,8 +14,17 @@ RUN apt-get install cmake build-essential -y -f && \
     cmake .. && make && make install && \
     cd ../.. && rm -rf aom
 
-COPY . .
-
+COPY requirements.txt .
 RUN pip3 install -r requirements.txt
 
+# Download and install Telethon from GitHub
+RUN wget https://github.com/1Danish-00/Telethon/archive/master.zip && \
+    unzip master.zip && \
+    rm master.zip && \
+    mv Telethon-master telethon && \
+    cd telethon && \
+    pip3 install .
+
+# Install html_telegraph_poster
+RUN pip3 install html-telegraph-poster
 CMD ["bash", "run.sh"]
