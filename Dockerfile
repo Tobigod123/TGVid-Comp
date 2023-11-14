@@ -10,7 +10,8 @@ RUN apt -qq update && \
 RUN apt-get install cmake build-essential -y -f && \
     git clone --branch v3.1.0 --depth 1 https://aomedia.googlesource.com/aom.git && \
     cd aom && \
-    mkdir build && cd build && \
+    if [ ! -d "build" ]; then mkdir build; fi && \
+    cd build && \
     cmake .. && make && make install && \
     cd ../.. && rm -rf aom
 
@@ -24,7 +25,6 @@ RUN wget https://github.com/1Danish-00/Telethon/archive/master.zip && \
     mv Telethon-master telethon && \
     cd telethon && \
     pip3 install .
-
 # Install html_telegraph_poster
 RUN pip3 install html-telegraph-poster
 CMD ["bash", "run.sh"]
