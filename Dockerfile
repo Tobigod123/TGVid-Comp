@@ -7,6 +7,9 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt -qq update && \
     apt -qq install -y git wget pv jq python3-dev ffmpeg mediainfo neofetch
 
+# Install yasm assembler
+RUN apt-get install yasm -y -f
+
 RUN apt-get install cmake build-essential -y -f && \
     git clone --branch v3.1.0 --depth 1 https://aomedia.googlesource.com/aom.git && \
     cd aom && \
@@ -25,6 +28,7 @@ RUN wget https://github.com/1Danish-00/Telethon/archive/master.zip && \
     mv Telethon-master telethon && \
     cd telethon && \
     pip3 install .
+
 # Install html_telegraph_poster
 RUN pip3 install html-telegraph-poster
 CMD ["bash", "run.sh"]
